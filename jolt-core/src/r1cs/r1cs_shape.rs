@@ -91,7 +91,7 @@ impl<F: JoltField> R1CSShape<F> {
                 // each of the chunks and assume that only one of the threads will be writing to each chunk at a time
                 // due to ordering.
 
-                let num_threads = rayon::current_num_threads() * 4; // Enable work stealing incase of thread work imbalance
+                let num_threads = rayon::current_num_threads() * 4; // Enable work stealing in case of thread work imbalance
                 let thread_chunk_size = M.len() / num_threads;
                 let row_chunk_size = (num_rows as f64 / num_threads as f64).ceil() as usize;
 
@@ -260,7 +260,7 @@ impl<F: JoltField> R1CSShape<F> {
     }
 
     /// Pads the R1CSShape so that the number of variables is a power of two
-    /// Renumbers variables to accomodate padded variables
+    /// Renumbers variables to accommodate padded variables
     pub fn pad(&self) -> Self {
         // equalize the number of variables and constraints
         let m = max(self.num_vars, self.num_cons).next_power_of_two();
